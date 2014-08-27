@@ -89,7 +89,7 @@ which is also a built-in Haskell constant. You may look up these formulas online
 
 [TODO: Complete Haskell code, add >]
 
-volumeOfCube x =
+> volumeOfCube x = x^3
 
 
 
@@ -99,7 +99,7 @@ volumeOfCube x =
 
 [TODO: Complete Haskell code, add >]
 
-areaOfCircle r =
+> areaOfCircle r = pi * (r^2)
 
 
 
@@ -110,7 +110,7 @@ perpendicular to the base:
 
 [TODO: Complete Haskell code, add >]
 
-areaOfTriangle h w =
+> areaOfTriangle h w = (h*w) / 2
 
 
 
@@ -120,7 +120,7 @@ areaOfTriangle h w =
 
 [TODO: Complete Haskell code, add >]
 
-volumeOfCylinder h r =
+> volumeOfCylinder h r = areaOfCircle(r) * h
 
 
 
@@ -131,6 +131,10 @@ make sense to you? What do they mean? Do you have any questions?
 
 [TODO]
 
+volumeOfCube :: Num a => a -> a
+areaOfCircle :: Floating a => a -> a
+areaOfTriangle :: Fractional a => a -> a -> a
+volumeOfCylinder :: Floating a => a -> a -> a
 
 
 ----------------------------------------------------------------
