@@ -131,10 +131,10 @@ make sense to you? What do they mean? Do you have any questions?
 
 [TODO]
 
-volumeOfCube :: Num a => a -> a
-areaOfCircle :: Floating a => a -> a
-areaOfTriangle :: Fractional a => a -> a -> a
-volumeOfCylinder :: Floating a => a -> a -> a
+volumeOfCube :: Num a => a -> a (takes a Num, returns a Num)
+areaOfCircle :: Floating a => a -> a (takes a Floating, returns a Floating)
+areaOfTriangle :: Fractional a => a -> a -> a (takes 2 Fractionals, returns a Fractional)
+volumeOfCylinder :: Floating a => a -> a -> a (takes 2 Floatings, returns a Floating)
 
 
 ----------------------------------------------------------------
@@ -152,7 +152,7 @@ check online for the exact formulas to do this.
 
 [TODO: Complete Haskell code, add >]
 
-cToF c = 
+> cToF c = (c * 1.8) + 32
 
 
 
@@ -162,7 +162,7 @@ cToF c =
 
 [TODO: Complete Haskell code, add >]
 
-fToC f = 
+> fToC f = (f - 32) / 1.8
 
 
 
@@ -173,6 +173,9 @@ result.
 
 [TODO]
 
+Explanation:
+"cToF (fToC 1)" returned 1.0, because 1F was converted to C and then back to F.
+
 
 
 2.4. Now use Hugs to compute the result of "fToC (cToF 1)". Explain this result.
@@ -180,6 +183,24 @@ result.
 
 
 [TODO]
+
+Explanation:
+"fToC (cToF 1)" returned 0.999999999999998, which is very close to 1. Following the function through:
+
+   fToC (cToF 1)
+-> fToC ( (1 * 1.8) + 32 )
+-> fToC ( 1.8 + 32 )
+-> fToC (33.8)
+-> (33.8 - 32) / 1.8
+-> 1.8 / 1.8
+... which evaluates to 0.9999..., which is less than 1
+This indicates an inaccuracy in the floating point arithmetic which can
+probably be attributed to (33.8 - 32) evaluating to something like 1.79999...
+Or, (1.8 + 32) evaluating to something like 33.79999...
+To check the exact value would require some debugger/memory-watching work while
+comparing the exact IEEE 754 values of (1.8 + 32) and (33.8 - 32) to 1.8, which
+is a lot of work. It may also be that somehow the division of 1.8 / 1.8 (division
+of the same value in memory) is imprecise for some reason.
 
 
 
@@ -189,6 +210,11 @@ make sense to you? What do they mean? Do you have any questions?
 
 
 [TODO]
+
+fToC :: Fractional a => a -> a
+cToF :: Fractional a => a -> a
+
+They both take and return a Fractional.
 
 
 
