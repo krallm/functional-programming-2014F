@@ -242,7 +242,10 @@ function.
 
 [TODO: Complete Haskell code, add >]
 
-roots a b c = 
+Quadratic formula using helper function for +/-
+
+> roots a b c = (z (+), z (-))
+>                  where z f = (f (-1 * b) (sqrt( (b^2) - (4*a*c) ))) / (2 * a)
 
 
 
@@ -251,6 +254,8 @@ roots a b c =
 
 
 [TODO]
+
+(-2.0, -2.0)
 
 
 
@@ -261,6 +266,10 @@ make Hugs compute this result? How did you enter this command?
 
 [TODO]
 
+(2.0, 2.0)
+Entered as: roots 1 (-4) 4
+roots 1 -4 4 printed: ERROR - Cannot infer instance
+
 
 
 3.4. What happens when you call the function with a = 5, b = 0, and c = 5? Why does this result happen? Is this 
@@ -270,6 +279,10 @@ result acceptable, or is there something you can do about it?
 
 [TODO]
 
+Program error: argument out of range
+This is because (b^2 - 4*a*c) evaluated to a negative number, which sqrt had a problem with.
+Can return (NaN, NaN) if this is the case.
+
 
 
 3.5. Use ":t " to get the type for the function you have defined. Does the type make sense to you? What does it 
@@ -278,6 +291,10 @@ mean? Do you have any questions?
 
 
 [TODO]
+
+roots :: Floating a => a -> a -> a -> (a,a)
+
+Takes 3 Floatings and returns a tuple of 2 Floatings.
 
 
 
