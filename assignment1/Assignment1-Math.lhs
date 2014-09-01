@@ -313,7 +313,10 @@ Theorem, which you can look up online. First answer the following questions:
 
 
 
-[TODO]  
+[TODO]
+
+It should error (or something similar?) as a valid triangle couldn't have a side with
+a negative length or a length of 0.
 
 
 
@@ -325,6 +328,8 @@ and c are. Describe in words how you can achieve this result.
 
 [TODO]
 
+By checking all three cases of (a,b), (b,c), and (c,a).
+
 
 
 4.3. Now define your function. Be sure to use literate style comments to explain your function.
@@ -333,7 +338,17 @@ and c are. Describe in words how you can achieve this result.
 
 [TODO: Complete Haskell code, add >]
 
-triangle a b c
+Define a custom #== operator as well for checking if "close enough"
+to get around the problem in 4.6.
+
+> (#==) a b = 1e-6 > abs(a - b)
+>
+> triangle a b c =
+>     if ((a^2) + (b^2)) #== (c^2)
+>     || ((b^2) + (c^2)) #== (a^2)
+>     || ((c^2) + (a^2)) #== (b^2)
+>        then True
+>        else False
 
 
 
@@ -344,6 +359,12 @@ you have any questions?
 
 [TODO]
 
+Old: triangle :: (Num a) => a -> a -> a -> Bool
+New: triangle :: (Ord a, Fractional a) => a -> a -> a -> Bool
+
+It takes 3 Ords or Fractionals (sides) and returns a Bool (True if a triangle, False if not).
+Makes sense.
+
 
 
 4.5. Try running "triangle 5 3 4" and explain what happens. Do you get the result you expect? Why/why not?
@@ -351,6 +372,8 @@ you have any questions?
 
 
 [TODO]
+
+It returns True as expected.
 
 
 
@@ -360,6 +383,8 @@ not?
 
 
 [TODO]
+
+It returns True as expected.
 
 
 
@@ -371,6 +396,10 @@ those changes were and why you needed them. Otherwise, explain why you think no 
 
 [TODO]
 
+Had to add a custom function to use for floating point comparison, due to imprecision such as:
+((sqrt 13)^2) == 13
+... evaluating to False.
+
 
 
 4.8. If you changed your function, then use ":t " to compare the old type to the new type. Has anything changed? 
@@ -379,6 +408,11 @@ Why?
 
 
 [TODO]
+
+Old: triangle :: (Num a) => a -> a -> a -> Bool
+New: triangle :: (Ord a, Fractional a) => a -> a -> a -> Bool
+
+Yes, it has changed because of the #== function.
 
 
 
