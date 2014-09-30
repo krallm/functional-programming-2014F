@@ -26,16 +26,25 @@ CODE WARNING: All code must be written in the literate programming style. Fully 
 
 1.1. Enter ":t [0,2..10]" into Hugs. What does the result mean? What result does "[0,2..10]" return? Explain what is happening in general.
 
-[TODO]
+[DONE]
+enumFromThenTo 0 2 10 :: (Enum a, Num a) => [a]
+It is a function that takes 3 parameters, and returns a list of elements which are Enums and Nums.
+[0,2..10] returns: [0,2,4,6,8,10]
+A list from 0 to 10 by adding 2.
 
 1.2. Now consider this expression: [x^2 | x <- [0..10]]
 This is called a list comprehension. What does it compute, and why? What is happening in general?
 
-[TODO]
+[DONE]
+It computes a list of the squares of 0 to 10: [0,1,4,9,16,25,36,49,64,81,100]
+It computes this because that's the purpose of a list comprehension.
+A list is created.
 
 1.3. Think of some situations where list comprehensions and enumerations would be useful. How would they make programming easier?
 
-[TODO]
+[DONE]
+When a list of a certain pattern is needed.
+It's a convenient way to create lists that follow a certain pattern.
 
 ----------------------------------------------------------------
 
