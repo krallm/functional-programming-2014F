@@ -53,24 +53,57 @@ These questions deal with anonymous functions.
 2.1. Consider this anonymous function: (\x y -> x+y) 
 What is the type of this expression? What does it do? Try applying it to several inputs, and show the results.
 
-[TODO]
+[DONE]
+\x y -> x + y :: Num a => a -> a -> a
+It takes two Nums and returns the sum.
+
+Hugs> (\x y -> x+y) (-5) 10
+5
+Hugs> (\x y -> x+y) 5 10
+15
+Hugs> (\x y -> x+y) 40 0
+40
 
 2.2. Now do the same with this anonymous function: (\x -> (x+))
 Answer the same questions.
 
-[TODO]
+[DONE]
+\x -> (x +) :: Num a => a -> a -> a
+It takes two Nums and returns the sum.
+
+Hugs> (\x -> (x+)) (-5) 10
+5
+Hugs> (\x -> (x+)) 5 10
+15
+Hugs> (\x -> (x+)) 40 0
+40
 
 2.3. Now repeat the process with this anonymous function: (\(x,y) -> x+y)
 
-[TODO]
+[DONE]
+\(x,y) -> x + y :: Num a => (a,a) -> a
+It takes a tuple of two Nums and returns the sum.
+
+Hugs> (\(x,y) -> x+y) ((-5), 10)
+5
+Hugs> (\(x,y) -> x+y) (5, 10)
+15
+Hugs> (\(x,y) -> x+y) (40, 0)
+40
 
 2.4. How are these three functions different/same?
 
-[TODO]
+[DONE]
+They all perform the same basic function, returning the sum of two Nums.
+The first just expects x and y and adds them.
+The second only expects an x, and returns a function that expects a y.
+The third just expects a tuple with two Nums.
 
 2.5. Why might anonymous functions be useful?
 
-[TODO]
+[DONE]
+They are quick to define and don't require a name. Useful for a function
+that will probably only be used once.
 
 ----------------------------------------------------------------
 
