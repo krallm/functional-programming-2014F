@@ -114,23 +114,41 @@ map even [0..10]
 map odd [0..10]
 What are the results? Based on these results, what does "map" do? What is the type of "map"? Explain it.
 
-[TODO]
+[DONE]
+Result of map even [0..10]: [True,False,True,False,True,False,True,False,True,False,True]
+Result of map odd [0..10]:  [False,True,False,True,False,True,False,True,False,True,False]
+Returns a list with the results of the passed function on each element of the passed list.
+
+map :: (a -> b) -> [a] -> [b]
+It takes a function from (a -> b) and a list of a, and returns a list of b.
 
 3.2. Consider Haskell's "zip" and "zipWith" functions:
 zip [0,2..10] [1,3..11]
 zipWith (+) [0,1..10] [0,(-1)..(-10)]
 What are the results of these expressions, and why? What are these functions doing? What are their types? Explain.
 
-[TODO]
+[DONE]
+Result of zip [0,2..10] [1,3..11]:               [(0,1),(2,3),(4,5),(6,7),(8,9),(10,11)]
+Result of zipWith (+) [0,1..10] [0,(-1)..(-10)]: [0,0,0,0,0,0,0,0,0,0,0]
+They take two lists, and do something with each element returning one list.
+
+zip :: [a] -> [b] -> [(a,b)]
+zipWith :: (a -> b -> c) -> [a] -> [b] -> [c]
+
+zip takes [a] and [b], and tuple's each element of both lists, returning that in a new list.
+zipWith does the same, but instead of tupl-ing both elements, it uses the specified function and
+returns that result in a new list.
 
 3.3. What happens when the input lists to zip and zipWith have different lengths?
 
-[TODO]
+[DONE]
+They go only as far as the shortest list, returning a list of that length.
 
 3.4. How would you define zip in terms of zipWith? Call your function "myZip" and define it below:
 
-[TODO: Haskell Code Here, add >]
-myZip
+[DONE: Haskell Code Here, add >]
+
+>myZip xs ys = zipWith (\x y -> (x,y)) xs ys
 
 3.5. Now you will learn about some of Haskell's folding functions. Consider the following expressions:
 foldl1 (+) [1..10]
@@ -139,13 +157,33 @@ foldl1 (-) [1..10]
 foldr1 (-) [1..10]
 What are the outputs of each of these expressions? Compare and contrast the results to figure out what is happening with foldl1 and foldr1, and explain the difference between them.
 
-[TODO]
+[DONE]
+Result of foldl1 (+) [1..10]: 55
+Result of foldr1 (+) [1..10]: 55
+Result of foldl1 (-) [1..10]: -53
+Result of foldr1 (-) [1..10]: -5
+
+The (+) function is commutative, so the results for foldl1 and foldr1 are the same.
+However, (-) is not, so the results differ, on a smaller scale:
+(1 - (2 - (3 - (4)))) != ((((1) - 2) - 3) - 4)
+(1 - (2 - (-1)))      != (((-1) - 3) - 4)
+(1 - (3))             != ((-4) - 4)
+(-2)                  != (-8)
 
 3.6. Try to figure out what the output of the following expression will be before running it:
 foldl (\(x,y) z -> (x+y,z)) (0,0) [1..10]
 After checking your answer, explain what this expression does. How is foldl different from foldl1? Compare the types of the two functions to gain insight.
 
-[TODO]
+[DONE]
+(0,1) -> (1, 2) -> (3, 3) -> (6, 4) -> (10, 5) -> (15, 6) -> (21, 7) -> (28, 8) -> (36, 9) -> (45, 10)
+Expected output: (45, 10)
+The expected output matched the actual output.
+
+foldl :: (a -> b -> a) -> a -> [b] -> a
+foldl1 :: (a -> a -> a) -> [a] -> a
+
+foldl1 has no starting argument, which restricts it to the same type (all a's, no b's like in foldl).
+This is because it uses the first element of the given list as a starting point.
 
 ----------------------------------------------------------------
 
