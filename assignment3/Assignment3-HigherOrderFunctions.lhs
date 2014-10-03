@@ -188,11 +188,44 @@ This next function is fairly difficult to define, especially because you cannot 
 
 5.1. Define a function that takes as input a String that represents a VALID Roman numeral representation of a number, and returns the Integer value. For example, "MCMLXXXIV" is the representation of 1984, and "MMXIV" is 2014. The six letters that can appear in your Strings are I, V, X, L, C, and M. You may look up any information you want regarding Roman numerals and their translation into decimal. Note any sources of help that you use, and use literate programming to describe your algorithm. Lastly, remember that you cannot use recursion (though built-in Haskell functions that happen to be recursively defined are ok). However, you can define some helper functions.
 
-[TODO: Haskell Code]
+[DONE: Haskell Code]
+- xs is a Char -> Num replacement of given cs list.
+- getVal tracks the currently calculated total, previous value,
+  and whether or not the previous value was calculated as a negative.
+- getVal' gets the value of a char by itself.
+- total is set by getting the last tuple returned from foldl.
+
+I don't think this errors on all invalid formats of roman numerals,
+but it should work for all validly formatted roman numerals.
+
+>rome [] = 0
+>rome cs = total
+>	where
+>		xs = map (getVal') cs
+>		(total,_,_) = (foldl (getVal) (0, -1, False) xs)
+>		getVal (total,prev,wasNeg) cur
+>			| prev == -1                = (cur, cur, False)
+>			| and [wasNeg, cur >= prev] = error "Invalid roman numeral format"
+>			| prev < cur                = ((total - prev) + (cur - prev), cur, True)
+>			| otherwise                 = (total + cur, cur, False)
+>		getVal' c
+>			| c == 'I'  = 1
+>			| c == 'V'  = 5
+>			| c == 'X'  = 10
+>			| c == 'L'  = 50
+>			| c == 'C'  = 100
+>			| c == 'M'  = 1000
+>			| otherwise = error "Invalid roman numeral character"
 
 5.2. Design a testing procedure for this function that will convince me it is correct. Remember that your code only has to work for validly formatted Roman numerals. You may share test cases with other students in the class, but at least half of your test cases must be your own. Indicate which ones you came up with yourself. How many are enough?
 
-[TODO: Haskell Code]
+[DONE: Haskell Code]
+I came up with all test cases.
+
+>testRome xs = and (map (\(s,v) -> rome s == v) xs)
+>romeTestCases = [("MCMLXXXIV", 1984),("MMXIV", 2014),("XII", 12),("MMMMMCMIX", 5909),("I", 1)]
+
+Enough is enough.
 
 ----------------------------------------------------------------
 
