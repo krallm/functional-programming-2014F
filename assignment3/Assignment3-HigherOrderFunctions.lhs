@@ -153,13 +153,34 @@ Argmin and argmax are mathematical operations that return the function input tha
 
 4.1. Define argmin and argmax. Recall that you cannot make any recursive definitions. Remember to use literate style.
 
-[TODO: Haskell Code Here, add >]
-argmax f xs = 
-argmin f xs = 
+[DONE: Haskell Code Here, add >]
+For argmax, all results of f(x) which are positive will dedicate to the max sum.
+For argmin, all results of f(x) which are negative will dedicate to the min sum.
+
+>argmax f xs = filter (\x -> f(x) > 0) xs
+>argmin f xs = filter (\x -> f(x) < 0) xs
 
 4.2. Design a testing procedure for these functions that will convince me they are correct. You may share test cases with other students in the class, but at least half of your test cases must be your own. Indicate which ones you came up with yourself. How many are enough?
 
-[TODO: Haskell Code]
+[DONE: Haskell Code]
+
+>testArgmax xs = and (map (\x -> x > 0) (argmax (\x -> x) xs))
+>testArgmin xs = and (map (\x -> x < 0) (argmin (\x -> x) xs))
+
+Main> testArgmax [(-100)..100]
+True
+Main> testArgmax [0]
+True
+Main> testArgmax []
+True
+Main> testArgmin [(-100)..100]
+True
+Main> testArgmin [0]
+True
+Main> testArgmin []
+True
+
+Enough is enough.
 
 ------------------------------
 
